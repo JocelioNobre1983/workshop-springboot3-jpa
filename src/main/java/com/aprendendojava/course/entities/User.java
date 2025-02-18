@@ -9,8 +9,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-@Entity
-@Table(name = "tb_user")
+@Entity//@indica que uma classe é uma entidade Java Persistence API (JPA). Significa que a classe será mapeada para uma tabela de banco de dados. 
+@Table(name = "tb_user")//especifica detalhes de uma tabela que serão usados para persistir entidades na base de dados. 
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
