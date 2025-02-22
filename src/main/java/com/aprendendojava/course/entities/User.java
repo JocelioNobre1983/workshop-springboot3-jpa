@@ -1,28 +1,36 @@
 package com.aprendendojava.course.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-@Entity//@indica que uma classe é uma entidade Java Persistence API (JPA). Significa que a classe será mapeada para uma tabela de banco de dados. 
-@Table(name = "tb_user")//especifica detalhes de uma tabela que serão usados para persistir entidades na base de dados. 
+@Entity // @indica que uma classe é uma entidade Java Persistence API (JPA). Significa
+		// que a classe será mapeada para uma tabela de banco de dados.
+@Table(name = "tb_user") // especifica detalhes de uma tabela que serão usados para persistir entidades
+							// na base de dados.
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
-	@Id//falar pro jpa que o id é a chave primaria do bd
-	@GeneratedValue(strategy = GenerationType.IDENTITY)//ativar autoincremento
+
+	@Id // falar pro jpa que o id é a chave primaria do bd
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // ativar autoincremento
 	private Long id;
 	private String name;
 	private String email;
 	private String phone;
 	private String password;
+	
+	@OneToMany(mappedBy = "client")
+	private List<Order> orders = new ArrayList<>();
 
-	public User() {//OBRIGADO USAR O CONSTRUTOR VAZIO DEVIDO A UTILIZAÇÃO DE FRAMEWORK
+	public User() {// OBRIGADO USAR O CONSTRUTOR VAZIO DEVIDO A UTILIZAÇÃO DE FRAMEWORK
 	}
 
 	public User(Long id, String name, String email, String phone, String password) {
@@ -74,6 +82,10 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
+	public List<Order> getOrders() {
+		return orders;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -90,6 +102,5 @@ public class User implements Serializable {
 		User other = (User) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
+
 }
